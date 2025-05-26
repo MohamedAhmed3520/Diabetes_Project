@@ -4,6 +4,7 @@ import joblib
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 import numpy as np
+import xgboost
 
 st.title('Diabetes Prediction')
 
@@ -32,6 +33,7 @@ model = joblib.load('XGB_Grid.pkl')
 gender_text = st.selectbox('Gender', ['F', 'M'])
 GENDER = 0 if gender_text == 'F' else 1
 
+No_Pation = st.number_input('No_Pation')  # Moved before AGE
 AGE = st.number_input('AGE')
 Urea = st.number_input('Urea')
 Cr = st.number_input('Cr')
@@ -45,7 +47,7 @@ BMI = st.number_input('BMI')
 
 if st.button('Predict'):
     # Prepare input features in correct order
-    input_features = np.array([[GENDER, AGE, Urea, Cr, HbA1c, Chol, TG, HDL, LDL, VLDL, BMI]])
+    input_features = np.array([[GENDER, No_Pation, AGE, Urea, Cr, HbA1c, Chol, TG, HDL, LDL, VLDL, BMI]])
     
     # Scale input features using the scaler fitted on training data
     input_scaled = scaler.transform(input_features)
